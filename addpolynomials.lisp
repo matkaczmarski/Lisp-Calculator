@@ -13,6 +13,22 @@ Wymagania: skladniki wielomianow posortowane rosnaco wzgledem stopnia poteg"
 			(cons comp2 (AddPolynomials p1 (rest p2))))
 		  ((< (GetPower comp1) (GetPower comp2))
 			(cons comp1 (AddPolynomials (rest p1) p2))))))
+			
+(defun AddPolynomialsM (p1 p2)
+"Dodawanie wielomianów postaci '( (factor1 power1) (factor2 power2) itd.)
+Wymagania: skladniki wielomianow posortowane rosnaco wzgledem stopnia poteg"
+	(let ((comp1 (first p1))
+		 (comp2 (first p2)))
+	(cond ((eq nil comp1)
+			p2)
+		  ((eq nil comp2)
+			p1)
+		  ((= (GetPower comp1) (GetPower comp2))
+			(cons (list `(+ ,(GetFactor comp1) ,(GetFactor comp2)) (GetPower comp1)) (AddPolynomialsM (rest p1) (rest p2))))
+		  ((> (GetPower comp1) (GetPower comp2))
+			(cons comp2 (AddPolynomialsM p1 (rest p2))))
+		  ((< (GetPower comp1) (GetPower comp2))
+			(cons comp1 (AddPolynomialsM (rest p1) p2))))))
 
 (defun AddPolynomialsTest () 
 "Testowanie dodawania wielomianow"
