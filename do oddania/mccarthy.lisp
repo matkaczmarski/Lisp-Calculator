@@ -1,11 +1,11 @@
 (defun McCarthy(n)
-"Funkcja Ackermanna"
+"Funkcja McCarthy'ego"
 	(if (> n 100)
 		(- n 10)
 		(McCarthy (McCarthy (+ n 11)))))
 
 (defun TestMcCarthy () 
-"Testowanie Funkcji Ackermanna"
+"Testowanie Funkcji McCarthy'ego"
 	(check (= (McCarthy 87) 91))
 	(check (= (McCarthy 90) 91))
 	(check (= (McCarthy 95) 91))
