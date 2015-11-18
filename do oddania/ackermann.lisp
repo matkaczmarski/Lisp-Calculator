@@ -7,13 +7,6 @@
 			(Ackermann (- m 1) (Ackermann m (- n 1))))))
 
 
-(defmacro Ackermann-macro(m n)
-	(if (zerop m)
-		(+ n 1)
-		(if (and (> m 0) (zerop n))
-			(Ackermann (- m 1) 1)
-			(Ackermann (- m 1) (Ackermann m (- n 1))))))
-
 (defun TestAckermann () 
 "Testowanie Funkcji Ackermanna"
 	(check (= (Ackermann 0 0) 1))
