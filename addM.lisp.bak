@@ -1,9 +1,9 @@
-(defmacro add-macro (x &rest y)
+(defmacro addm (x &rest y)
 	(cond 
 	    ((null y)
 		    x)
 		(t 
-		    ``(+ ,,x ,(add-macro ,@y)))
+		    ``(+ ,,x ,(addm ,@y)))
 	)
 )
 
