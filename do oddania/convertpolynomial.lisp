@@ -10,4 +10,8 @@
 		`((* ,(GetFactor (first ,poli)) (expt ,,x ,(GetPower (first ,poli))))) 
 		`((* ,(GetFactor (first ,poli)) (expt ,,x ,(GetPower (first ,poli)))) ,@(ConvertPolynomialRec (rest ,poli) ,x) )))
 
+
 (setf p (ConvertPolynomial '((1 0) (2 1) (2 2)) '(+ y x) ))
+(setf x 1)
+(setf y 1)
+(eval p)
