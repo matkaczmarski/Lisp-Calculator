@@ -10,7 +10,10 @@
 	)
 )
 
-(setq x (maxM '(+ a b) 'd 'c 'a '(* a b c)))
+(print (max-macro 1 2 3))
+(print (eval(max-macro 1 2 3)))
+
+(setq x (max-macro '(+ a b) 'd 'c 'a '(* a b c)))
 
 (setf a 1)
 (setf b 2)
@@ -19,4 +22,4 @@
 
 
 (print x)
-(write (eval x))
+(print (eval x))

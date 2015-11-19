@@ -7,3 +7,10 @@
         )
     )
 )
+
+(defun ConvertToBinaryTest () 
+"Testowanie Konwersji z Systemu Dziesiętnego na binarny"
+	(check (= (convert-to-binary 5) `(1 0 1)))
+	(check (= (convert-to-binary 31) `(1 1 1 1 1)))
+	(check (= (convert-to-binary 32) `(1 1 1 1 1 0)))
+)
