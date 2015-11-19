@@ -7,12 +7,9 @@
 	)
 )
 
-(setq x (addm '(+ a b) 'd 'c 'a `(* c b a)))
-
-(setf a 1)
-(setf b 2)
-(setf c 3)
-(setf d 4)
-
-(print x)
-(write (eval x))
+(defun AddMacroTest () 
+"Testowanie Makra Dodawania"
+	(check (= (add-macro 1 2 3 4) 10))
+	(check (= (add-macro `(* 5 2)  1) 11))
+	(check (= (add-macro `(+ (* 5 2) 3) `(+ 3 4)) 20))
+)
