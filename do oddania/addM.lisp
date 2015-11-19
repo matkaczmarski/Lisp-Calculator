@@ -7,9 +7,9 @@
 	)
 )
 
-(defun AddMacroTest () 
-"Testowanie Makra Dodawania"
-	(check (= (add-macro 1 2 3 4) 10))
-	(check (= (add-macro `(* 5 2)  1) 11))
-	(check (= (add-macro `(+ (* 5 2) 3) `(+ 3 4)) 20))
-)
+(print (add-macro 1 2 3 4))
+(print (eval(add-macro 1 2 3 4)))
+(print (add-macro `(* 5 2)  1))
+(print (eval(add-macro `(* 5 2)  1)))
+(print (add-macro `(+ (* 5 2) 3) `(+ 3 4)))
+(print (eval(add-macro `(+ (* 5 2) 3) `(+ 3 4))))
