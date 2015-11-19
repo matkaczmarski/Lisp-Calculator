@@ -10,6 +10,10 @@
 	)
 )
 
+
+(print (min-macro 3 2 4))
+(print (eval(min-macro 3 2 4)))
+
 (setq x (min-macro '(+ a b) 'd 'c 'a '(* a b c)))
 
 (setf a 1)
@@ -19,4 +23,4 @@
 
 
 (print x)
-(write (eval x))
+(print (eval x))
