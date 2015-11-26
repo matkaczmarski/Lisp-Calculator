@@ -12,7 +12,7 @@ function [ ] = CantorSet( iter, part )
         for j = 1:size(b, 2)
                 x1 = b(1,j);
                 x2 = b(2,j);
-                d = ((x2 - x1) - (x2 - x1) ./ part) / 2;
+                d = ((x2 - x1) - (x2 - x1) .* part) / 2;
                 x_new = [x_new, x1, x1 + d, x2 - d, x2];
         end
         x = x_new;
