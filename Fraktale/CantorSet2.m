@@ -1,5 +1,9 @@
 function [ ] = CantorSet( iter, part )
 
+    if part <= 0 || part >= 1
+        sprintf('Nieprawid³owa wartoœæ zmiennej part!')
+        return
+    end
     x = [0, 1];
     for i = 1:iter
         b_old = x;
