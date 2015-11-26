@@ -24,4 +24,3 @@ function [ ] = GeneralCantorSet( iter, part )
     xlim([-0.1 1.1]), ylim([0 iter+1])
 
 end
-    
