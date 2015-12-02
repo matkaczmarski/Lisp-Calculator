@@ -23,7 +23,7 @@ power(X,Y,Result):-
 % --------------------------------------------------------
 %EXPONENTIAL: e^x = Result in Iter iterations
 exp(X,Result,0):-
-        Result is 1.
+    Result is 1.
 exp(X,Result,Iter):-
     Iter > 0,
     Iter1 is Iter - 1,
@@ -31,3 +31,15 @@ exp(X,Result,Iter):-
     factorial(Iter,Factorial),
     power(X,Iter,Power),
     Result is Result1 + Power / Factorial.
+    
+% --------------------------------------------------------
+%NATURAL LOGARITHM: ln(x) = Result in Iter iterations, 0<x<2
+ln(X,Result,0):-
+    Result is 0.
+ln(X,Result,Iter):-
+    Iter > 0,
+    Iter1 is Iter - 1,
+    ln(X,Result1,Iter1),
+    power(X-1,Iter,Power),
+    power(-1,Iter+1, NegOneTerm),
+    Result is Result1 + NegOneTerm * Power / Iter.
