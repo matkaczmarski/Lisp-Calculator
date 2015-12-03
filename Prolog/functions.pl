@@ -178,16 +178,16 @@ bc(T,B,Result):-
 
 %GENERALIZED BINOMIAL COEFFICIENT: gbc(t,b,Result) = Result in Iter iterations t-arbitrary
 gbc(T,B,Result):-
-    factorial(T,TopFactorial),
+    gbctmp(T,B,TopFactor),
     factorial(B,BottomFactorial),
-    factorial(T-B,Bottom2Factorial),
-    Result is TopFactorial/(Bottom1Factorial*Bottom2Factorial).
+    Result is TopFactor / BottomFactorial.
 
 gbctmp(T,K,Result):-
-    K=0,
+    K = 1,
     Result is T;
-    K>0
-    gbctmp(T,K-1,Result1),
+    K > 1,
+    K1 is K - 1,
+    gbctmp(T,K1,Result1),
     Result is Result1 *(T-K+1).
     
 % --------------------------------------------------------
