@@ -31,7 +31,7 @@ exp(X,Result,Iter):-
     factorial(Iter,Factorial),
     power(X,Iter,Xpower),
     Result is Result1 + Xpower / Factorial.
-    
+
 % --------------------------------------------------------
 %NATURAL LOGARITHM: ln(x) = Result in Iter iterations, 0<x<2
 ln(X,Result,0):-
@@ -71,7 +71,7 @@ r2d(R,D):-
 % DEGREES->RADIANS: d2r(d,r)
 d2r(D,R):-
     R is D*pi /180.
-    
+
 % --------------------------------------------------------
 %SINE: sin(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), sin(R,Res,10).
@@ -86,7 +86,7 @@ sin(X,Result,Iter):-
     power(-1,Iter, NegOneTerm),
     factorial(Factor,Factorial),
     Result is Result1 + NegOneTerm*Xpower/Factorial.
-    
+
 % --------------------------------------------------------
 %COSINE: cos(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), cos(R,Res,10).
@@ -101,8 +101,8 @@ cos(X,Result,Iter):-
     power(-1,Iter, NegOneTerm),
     factorial(Factor,Factorial),
     Result is Result1 + NegOneTerm*Xpower/Factorial.
-    
-    
+
+
 % --------------------------------------------------------
 %HIPERBOLIC SINE: sinh(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), sinh(R,Res,10).
@@ -130,7 +130,7 @@ cosh(X,Result,Iter):-
     power(X,Factor,Xpower),
     factorial(Factor,Factorial),
     Result is Result1 + Xpower/Factorial.
-    
+
 % --------------------------------------------------------
 %ARCSINE: arcsin(x) = Result in Iter iterations, for |x|<=1
 %Execution example: arcsin(0.5,Res,20),r2d(Res,D).
@@ -153,8 +153,8 @@ arcsin(X,Result,Iter):-
 arccos(X,Result,Iter):-
      arcsin(X,Res1,Iter),
      Result is pi /2 - Res1.
-     
-     
+
+
 % --------------------------------------------------------
 %ARCTANGENT: arctg(x) = Result in Iter iterations, for |x|<=1
 %Execution example: arctg(1.0,Res,20),r2d(Res,D).
@@ -167,7 +167,7 @@ arctg(X,Result,Iter):-
     power(X,2*Iter+1,Xpower),
     power(-1,Iter, NegOneTerm),
     Result is Result1 +  NegOneTerm * Xpower / (2*Iter+1).
-    
+
 % --------------------------------------------------------
 %BINOMIAL COEFFICIENT: bc(t,b,Result) = Result in Iter iterations
 bc(T,B,Result):-
@@ -189,7 +189,7 @@ gbctmp(T,K,Result):-
     K1 is K - 1,
     gbctmp(T,K1,Result1),
     Result is Result1 *(T-K+1).
-    
+
 % --------------------------------------------------------
 %BINOMIAL: binomial(X,A,Result,Iter) = Result in Iter iterations  (1+x)^A for |x|<1, A in C
 binomial(X,A,Result,0):-
@@ -201,3 +201,53 @@ binomial(X,A,Result,Iter):-
     power(X,Iter,Xpower),
     gbc(A,Iter, BC),
     Result is Result1 + BC*Xpower.
+
+% --------------------------------------------------------
+% Euler: euler(N,K,Result) = Result
+euler(0,0,Result) :-
+	Result is 1.
+euler(N,0,Result) :-
+	Result is 1.
+euler(N,N,Result) :-
+	Result is 0.
+euler(N,K,Result) :-
+	N > K,
+	N1 is N - 1,
+	K1 is K - 1,
+	euler(N1,K,Result1),
+	euler(N1,K1,Result2),
+	Result is (K+1)*Result1 + (N-K)*Result2.
+
+% --------------------------------------------------------
+% Euler zigzag number: eulerNumber(N,K,Result) = Result
+eulerNumber(0,0,Result) :-
+	Result is 1.
+eulerNumber(N,0,Result) :-
+	Result is 0.
+eulerNumber(N,K,Result) :-
+	N >= K,
+	N1 is N - 1,
+	K1 is K - 1,
+	NK is N - K,
+	eulerNumber(N,K1,Result1),
+	eulerNumber(N1,NK,Result2),
+	Result is Result1 + Result2.
+
+% --------------------------------------------------------
+eulerNumberN(N,Result) :-
+	eulerNumber(N,N,Result1),
+	Result is Result1.
+
+% --------------------------------------------------------
+% Secans: sec(x) = Result in Iter iterations, for x in radian
+sec(X,Result,0):-
+        Result is 1.
+sec(X,Result,Iter):-
+    Iter > 0,
+    Iter1 is Iter - 1,
+    sec(X,Result1,Iter1),
+    Factor is 2*Iter,
+    power(X,Factor,Xpower),
+    factorial(Factor,Factorial),
+    eulerNumberN(Factor,EulerNr),
+    Result is Result1 + (EulerNr*Xpower)/Factorial.
