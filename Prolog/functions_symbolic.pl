@@ -1,11 +1,7 @@
-setMaximumIterations(Iterations):-
-    Iterations is 20.
-% --------------------------------------------------------
-%FACTORIAL/SILNIA: x! = Result
-factorial(0,Result) :-
+ %FACTORIAL/SILNIA: x! = Result
+factorial(1,Result) :-
     Result is 1.
 factorial(X,Result) :-
-    X > 0,
     X1 is X-1,
     factorial(X1,Result1),
     Result is Result1*X.
@@ -14,23 +10,23 @@ factorial(X,Result) :-
 %POWER/POTÊGOWANIE: x^y = Result
 power(X,0,Result):-
     Result is 1.
+power(X,1,Result):-
+    Result = X.
 power(X,Y,Result):-
-    Y > 0,
     Y1 is Y - 1,
     power(X,Y1,Z),
-    Result is Z*X.
+    Result = Z*X.
 
 % --------------------------------------------------------
 %EXPONENTIAL: e^x = Result in Iter iterations
 exp(X,Result,0):-
     Result is 1.
 exp(X,Result,Iter):-
-    Iter > 0,
     Iter1 is Iter - 1,
     exp(X,Result1,Iter1),
     factorial(Iter,Factorial),
     power(X,Iter,Xpower),
-    Result is Result1 + Xpower / Factorial.
+    Result = Result1 + Xpower / Factorial.
 
 % --------------------------------------------------------
 %NATURAL LOGARITHM: ln(x) = Result in Iter iterations, 0<x<2
@@ -42,8 +38,8 @@ ln(X,Result,Iter):-
     ln(X,Result1,Iter1),
     power(X-1,Iter,Xpower),
     power(-1,Iter+1, NegOneTerm),
-    Result is Result1 + NegOneTerm * Xpower / Iter.
-
+    NegOneTermVal is NegOneTerm,
+    Result = Result1 + NegOneTermVal * Xpower / Iter.
 
 % --------------------------------------------------------
 %SQUARE ROOT: sqrt(x) = Result in Iter iterations, for 0<x<2
@@ -55,13 +51,14 @@ sqrt(X,Result,Iter):-
     sqrt(X,Result1,Iter1),
     power(X-1,Iter,Xpower),
     power(-1,Iter, NegOneTerm),
+    NegOneTermVal is NegOneTerm,
     power(4,Iter,FourPower),
     factorial(2*Iter,TopFactorial),
     factorial(Iter,BottomFactorial),
     power(BottomFactorial,2,BottomFactorialPower),
-    Result is Result1 + NegOneTerm * TopFactorial * Xpower / ((1-2*Iter)*BottomFactorialPower*FourPower).
-
-
+    TopPart is NegOneTermVal * TopFactorial,
+    BottomPart is ((1-2*Iter)*BottomFactorialPower*FourPower),
+    Result = (Result1 +  TopPart * Xpower / BottomPart).
 
 % --------------------------------------------------------
 %               RADIANS <-> DEGREES CONVERTER:
@@ -76,7 +73,7 @@ d2r(D,R):-
 %SINE: sin(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), sin(R,Res,10).
 sin(X,Result,0):-
-    Result is X.
+    Result = X.
 sin(X,Result,Iter):-
     Iter > 0,
     Iter1 is Iter - 1,
@@ -84,8 +81,9 @@ sin(X,Result,Iter):-
     Factor is 2*Iter+1,
     power(X,Factor,Xpower),
     power(-1,Iter, NegOneTerm),
+    NegOneTermVal is NegOneTerm,
     factorial(Factor,Factorial),
-    Result is Result1 + NegOneTerm*Xpower/Factorial.
+    Result = Result1 + NegOneTermVal*Xpower/Factorial.
 
 % --------------------------------------------------------
 %COSINE: cos(x) = Result in Iter iterations, for x in radians
@@ -99,15 +97,15 @@ cos(X,Result,Iter):-
     Factor is 2*Iter,
     power(X,Factor,Xpower),
     power(-1,Iter, NegOneTerm),
+    NegOneTermVal is NegOneTerm,
     factorial(Factor,Factorial),
-    Result is Result1 + NegOneTerm*Xpower/Factorial.
-
+    Result = Result1 + NegOneTermVal*Xpower/Factorial.
 
 % --------------------------------------------------------
 %HIPERBOLIC SINE: sinh(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), sinh(R,Res,10).
 sinh(X,Result,0):-
-    Result is X.
+    Result = X.
 sinh(X,Result,Iter):-
     Iter > 0,
     Iter1 is Iter - 1,
@@ -115,8 +113,8 @@ sinh(X,Result,Iter):-
     Factor is 2*Iter+1,
     power(X,Factor,Xpower),
     factorial(Factor,Factorial),
-    Result is Result1 + Xpower/Factorial.
-
+    Result = Result1 + Xpower/Factorial.
+    
 % --------------------------------------------------------
 %HIPERBOLIC COSINE: cosh(x) = Result in Iter iterations, for x in radians
 %Execution example: d2r(60,R), cosh(R,Res,10).
@@ -129,13 +127,14 @@ cosh(X,Result,Iter):-
     Factor is 2*Iter,
     power(X,Factor,Xpower),
     factorial(Factor,Factorial),
-    Result is Result1 + Xpower/Factorial.
+    Result = Result1 + Xpower/Factorial.
+    
 
 % --------------------------------------------------------
 %ARCSINE: arcsin(x) = Result in Iter iterations, for |x|<=1
 %Execution example: arcsin(0.5,Res,20),r2d(Res,D).
 arcsin(X,Result,0):-
-    Result is X.
+    Result = X.
 arcsin(X,Result,Iter):-
     Iter > 0,
     Iter1 is Iter - 1,
@@ -145,28 +144,30 @@ arcsin(X,Result,Iter):-
     factorial(2*Iter,TopFactorial),
     factorial(Iter,BottomFactorial),
     power(BottomFactorial,2,BottomFactorialPower),
-    Result is Result1 +  TopFactorial * Xpower / ((2*Iter+1)*BottomFactorialPower*FourPower).
+    BottomPart is ((2*Iter+1)*BottomFactorialPower*FourPower),
+    Result = Result1 +  TopFactorial * Xpower / BottomPart .
 
 % --------------------------------------------------------
 %ARCCOSINE: arccos(x) = Result in Iter iterations, for |x|<=1
 %Execution example: arccos(0.5,Res,20),r2d(Res,D).
 arccos(X,Result,Iter):-
      arcsin(X,Res1,Iter),
-     Result is pi /2 - Res1.
-
-
+     Result = pi /2 - Res1.
+     
 % --------------------------------------------------------
 %ARCTANGENT: arctg(x) = Result in Iter iterations, for |x|<=1
 %Execution example: arctg(1.0,Res,20),r2d(Res,D).
 arctg(X,Result,0):-
-    Result is X.
+    Result = X.
 arctg(X,Result,Iter):-
     Iter > 0,
     Iter1 is Iter - 1,
     arctg(X,Result1,Iter1),
     power(X,2*Iter+1,Xpower),
     power(-1,Iter, NegOneTerm),
-    Result is Result1 +  NegOneTerm * Xpower / (2*Iter+1).
+    NegOneTermVal is NegOneTerm,
+    BottomPart is (2*Iter+1),
+    Result = Result1 +  NegOneTermVal * Xpower / BottomPart.
 
 % --------------------------------------------------------
 %BINOMIAL COEFFICIENT: bc(t,b,Result) = Result in Iter iterations
@@ -181,7 +182,7 @@ gbc(T,B,Result):-
     gbctmp(T,B,TopFactor),
     factorial(B,BottomFactorial),
     Result is TopFactor / BottomFactorial.
-
+    
 gbctmp(T,K,Result):-
     K = 1,
     Result is T;
@@ -189,7 +190,7 @@ gbctmp(T,K,Result):-
     K1 is K - 1,
     gbctmp(T,K1,Result1),
     Result is Result1 *(T-K+1).
-
+    
 % --------------------------------------------------------
 %BINOMIAL: binomial(X,A,Result,Iter) = Result in Iter iterations  (1+x)^A for |x|<1, A in C
 binomial(X,A,Result,0):-
@@ -200,7 +201,8 @@ binomial(X,A,Result,Iter):-
     binomial(X,A,Result1,Iter1),
     power(X,Iter,Xpower),
     gbc(A,Iter, BC),
-    Result is Result1 + BC*Xpower.
+    Result = Result1 + BC*Xpower.
+    
 
 % --------------------------------------------------------
 % Euler: euler(N,K,Result) = Result
@@ -237,7 +239,7 @@ eulerNumber(N,K,Result) :-
 eulerNumberN(N,Result) :-
         eulerNumber(N,N,Result1),
         Result is Result1.
-
+        
 % --------------------------------------------------------
 % Secans: sec(x) = Result in Iter iterations, for x in radian
 sec(X,Result,0):-
@@ -250,4 +252,4 @@ sec(X,Result,Iter):-
     power(X,Factor,Xpower),
     factorial(Factor,Factorial),
     eulerNumberN(Factor,EulerNr),
-    Result is Result1 + (EulerNr*Xpower)/Factorial.
+    Result = Result1 + (EulerNr*Xpower)/Factorial.
