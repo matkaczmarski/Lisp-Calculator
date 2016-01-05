@@ -7,6 +7,7 @@ hominoidea('Andrew', 'Hominidae', 'Homininae', 'Hominini', 'Homo', 'Homo sapiens
 hominoidea('Phoebe', 'Hylobatidae', '', '', 'Hylobates', 'Hylobates moloch', '6.8', '55.2', '11', 'Female', 'Frugivore ').
 hominoidea('Abby', 'Hominidae', 'Ponginae', '', 'Pongo', 'Pongo abelii', '49.0', '94.0', '32', 'Female', 'Omnivore').
 hominoidea('Rob', 'Hominidae', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla gorilla', '135.0', '174.0', '28', 'Male', 'Omnivore').
+hominoidea('Rob2', 'Hominidae2', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla gorilla', '135.0', '174.0', '28', 'Male', 'Omnivore').
 
 get_average_height_by_species(Average) :-
 	write('Enter name of a specie: '),
@@ -36,6 +37,51 @@ my_length([], Count) :-
 	Count is 1.
 my_length(List, Count) :-
 	length(List, Count).
+
+get_by_family() :-
+    write('Enter name of a family: '),
+    read_line_to_codes(user_input, FamilyInput),
+    atom_codes(Family, FamilyInput), nl,
+    findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
+    sort(Animals, UniqueAnimals),
+    length(UniqueAnimals, AnimalsLen),
+    writef('Found %w individuals:\n', [AnimalsLen]),
+    format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
+    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
+
+get_by_subfamily() :-
+    write('Enter name of a subfamily: '),
+    read_line_to_codes(user_input, SubfamilyInput),
+    atom_codes(Subfamily, SubfamilyInput), nl,
+    findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
+    sort(Animals, UniqueAnimals),
+    length(UniqueAnimals, AnimalsLen),
+    writef('Found %w individuals:\n', [AnimalsLen]),
+    format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
+    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
+
+get_by_tribe() :-
+    write('Enter name of a tribe: '),
+    read_line_to_codes(user_input, TribeInput),
+    atom_codes(Tribe, TribeInput), nl,
+    findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
+    sort(Animals, UniqueAnimals),
+    length(UniqueAnimals, AnimalsLen),
+    writef('Found %w individuals:\n', [AnimalsLen]),
+    format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
+    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
+
+get_by_genus() :-
+    write('Enter name of a family: '),
+    read_line_to_codes(user_input, GenusInput),
+    atom_codes(Genus, GenusInput), nl,
+    findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
+    sort(Animals, UniqueAnimals),
+    length(UniqueAnimals, AnimalsLen),
+    writef('Found %w individuals:\n', [AnimalsLen]),
+    format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
+    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
+
 
 get_by_species() :-
     write('Enter name of a specie: '),
