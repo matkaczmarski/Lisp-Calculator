@@ -7,21 +7,21 @@ hominoidea('Andrew', 'Hominidae', 'Homininae', 'Hominini', 'Homo', 'Homo sapiens
 hominoidea('Phoebe', 'Hylobatidae', '', '', 'Hylobates', 'Hylobates moloch', '6.8', '55.2', '11', 'Female', 'Frugivore ').
 hominoidea('Abby', 'Hominidae', 'Ponginae', '', 'Pongo', 'Pongo abelii', '49.0', '94.0', '32', 'Female', 'Omnivore').
 hominoidea('Rob', 'Hominidae', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla gorilla', '135.0', '174.0', '28', 'Male', 'Omnivore').
-hominoidea('Rob2', 'Hominidae2', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla gorilla', '135.0', '174.0', '28', 'Male', 'Omnivore').
+hominoidea('Rob', 'Hominidae2', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla gorilla', '135.0', '174.0', '28', 'Male', 'Omnivore').
 
 get_average_height_by_species(Average) :-
-	write('Enter name of a specie: '),
-	read_line_to_codes(user_input, SpecieInput),
-	atom_codes(Specie, SpecieInput), nl,
-	findall(Height, hominoidea(_,_,_,_,_,Specie,_,Height,_,_,_), Animals),
-	average(Average,Animals).
+        write('Enter name of a specie: '),
+        read_line_to_codes(user_input, SpecieInput),
+        atom_codes(Specie, SpecieInput), nl,
+        findall(Height, hominoidea(_,_,_,_,_,Specie,_,Height,_,_,_), Animals),
+        average(Average,Animals).
 
 get_average_weight_by_species(Average) :-
-	write('Enter name of a specie: '),
-	read_line_to_codes(user_input, SpecieInput),
-	atom_codes(Specie, SpecieInput), nl,
-	findall(Height, hominoidea(_,_,_,_,_,Specie,_,Height,_,_,_), Animals),
-	average(Average,Animals).
+        write('Enter name of a specie: '),
+        read_line_to_codes(user_input, SpecieInput),
+        atom_codes(Specie, SpecieInput), nl,
+        findall(Height, hominoidea(_,_,_,_,_,Specie,_,Height,_,_,_), Animals),
+        average(Average,Animals).
 
 average(Average, List) :- sum(List, Sum),
                           my_length(List, Count),
@@ -34,9 +34,9 @@ sum([X|List], Sum) :-
     Sum is Xnumber + Sum1.
 
 my_length([], Count) :-
-	Count is 1.
+        Count is 1.
 my_length(List, Count) :-
-	length(List, Count).
+        length(List, Count).
 
 get_by_family() :-
     write('Enter name of a family: '),
@@ -93,6 +93,18 @@ get_by_species() :-
     writef('Found %w individuals:\n', [AnimalsLen]),
     format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
     foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).%  writef('\t%10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w\n', IndividualInfo)).
+
+get_by_id() :-
+    write('Enter id: '),
+    read_line_to_codes(user_input, IdInput),
+    atom_codes(Name, IdInput), nl,
+    findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
+    sort(Animals, UniqueAnimals),
+    length(UniqueAnimals, AnimalsLen),
+    writef('Found %w individuals:\n', [AnimalsLen]),
+    format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Superfamily', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
+    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).%  writef('\t%10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w %10L%w\n', IndividualInfo)).
+
 
 add_individual() :-
     write('Define new individual:'), nl, nl,
