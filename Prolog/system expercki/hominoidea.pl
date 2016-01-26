@@ -53,15 +53,15 @@ my_length(List, Count) :-
         length(List, Count).
 
 get_by_family() :-
-    write('Enter name of a family: '),
+    write('Enter name of a genus: '),
     read_line_to_codes(user_input, FamilyInput),
     atom_codes(Family, FamilyInput), nl,
     findall([Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet], hominoidea(Name, Family, Subfamily, Tribe, Genus, Specie, Weight, Height, Age, Sex, Diet), Animals),
-    sort(Animals, UniqueAnimals),
-    length(UniqueAnimals, AnimalsLen),
+    sort(Animals, SortedAnimals),
+    length(SortedAnimals, AnimalsLen),
     writef('Found %w individuals of family %w:\n', [AnimalsLen, Family]),
     format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', ['Name', 'Family', 'Subfamily', 'Tribe', 'Genus', 'Specie', 'Weight (kg)', 'Height (cm)', 'Age', 'Sex', 'Diet']),
-    foreach(member(IndividualInfo, UniqueAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
+    foreach(member(IndividualInfo, SortedAnimals), format('~w~t~10|~w~t~25|~w~t~40|~w~t~55|~w~t~65|~w~t~85|~w~t~100|~w~t~115|~w~t~130|~w~t~145|~w~t~160|~n', IndividualInfo)).
 
 get_by_subfamily() :-
     write('Enter name of a subfamily: '),

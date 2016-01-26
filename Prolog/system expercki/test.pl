@@ -11,7 +11,7 @@ get_tests():-
     
 add_tests():-
    get_all_data(),
-   add_specified_individual('TicTac', 'Hominidae', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla beringei', '67.0', '115.0', '5', 'Male', 'Omnivore'),
+   add_specified_individual('Pan Goryl', 'Hominidae', 'Homininae', 'Gorillini', 'Gorilla', 'Gorilla beringei', '67.0', '115.0', '5', 'Male', 'Omnivore'),
    get_all_data().
    
 remove_tests():-
