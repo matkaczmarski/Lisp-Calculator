@@ -35,15 +35,10 @@ for i=1:seg
         [a b c d] = hermite_cubic_interpolate(xtmp,ytmp,dx,dy);
         params = [params; xtmp(1), xtmp(pointsPerHI),a,b,c,d];
     else
-        dx=[xtmp(1)]
+        dx=[xtmp(1)];
         prev_params=params(size(params,1),:);
         der_x1=polyder(prev_params(pphi:end));
-        %dy =[];
-        %if i ~= seg
-            dy=[polyval(der_x1, xtmp(1))];
-        %else
-        %    dy = 
-        %end
+        dy=[polyval(der_x1, xtmp(1))];
         [a b c d] = hermite_cubic_interpolate(xtmp,ytmp,dx,dy);
         params = [params; xtmp(1), xtmp(pointsPerHI),a,b,c,d];
     end    

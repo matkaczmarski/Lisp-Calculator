@@ -15,7 +15,6 @@ function [xi, yi] =safif(IP,S,N,steps)
     A_0=IP;
     points=N+1;
     for i=1:steps
-        i
         %for each section
         l=1;
         for j=1:N
