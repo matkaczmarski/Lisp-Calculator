@@ -1,0 +1,19 @@
+x = 1:100;
+y = zeros(1,100);
+for i=1:100
+    if mod(i, 2) == 1
+        y(i) = 1;
+    else
+        y(i) = ;
+    end
+end
+
+hp = hermite(x,y,zeros(1,100))
+%polyval(hp)
+
+
+x_1 = 1:0.1:100;
+y_1 = polyval(hp, x_1);
+
+
+plot(x_1, y_1)
